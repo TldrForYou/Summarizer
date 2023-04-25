@@ -22,7 +22,7 @@ from transformers.trainer_utils import get_last_checkpoint
 import transformers
 from transformers.utils import send_example_telemetry
 from dataclasses import dataclass, field
-from optimum.onnxruntime import ORTSeq2SeqTrainer, ORTSeq2SeqTrainingArguments, ORTTrainer, ORTTrainingArguments
+from optimum.onnxruntime import ORTTrainer, ORTTrainingArguments
 from huggingface_hub import login
 
 import nltk
@@ -44,26 +44,32 @@ class ModelArguments:
     """
 
     model_name_or_path: str = field(
-        metadata={"help": "Path to pretrained model or model identifier from huggingface.co/models"}
+        metadata={
+            "help": "Path to pretrained model or model identifier from huggingface.co/models"}
 
     )
     config_name: Optional[str] = field(
-        default=None, metadata={"help": "Pretrained config name or path if not the same as model_name"}
+        default=None, metadata={
+            "help": "Pretrained config name or path if not the same as model_name"}
     )
     model_revision: str = field(
         default="main",
-        metadata={"help": "The specific model version to use (can be a branch name, tag name or commit id)."},
+        metadata={
+            "help": "The specific model version to use (can be a branch name, tag name or commit id)."},
     )
     tokenizer_name: Optional[str] = field(
-        default=None, metadata={"help": "Pretrained tokenizer name or path if not the same as model_name"}
+        default=None, metadata={
+            "help": "Pretrained tokenizer name or path if not the same as model_name"}
     )
     cache_dir: Optional[str] = field(
         default=None,
-        metadata={"help": "Where to store the pretrained models downloaded from huggingface.co"},
+        metadata={
+            "help": "Where to store the pretrained models downloaded from huggingface.co"},
     )
     use_fast_tokenizer: bool = field(
         default=True,
-        metadata={"help": "Whether to use one of the fast tokenizer (backed by the tokenizers library) or not."},
+        metadata={
+            "help": "Whether to use one of the fast tokenizer (backed by the tokenizers library) or not."},
     )
     use_auth_token: bool = field(
         default=False,
@@ -82,16 +88,20 @@ class DataTrainingArguments:
     Arguments pertaining to what data we are going to input our model for training and eval.
     """
 
-    lang: Optional[str] = field(default=None, metadata={"help": "Language id for summarization."})
+    lang: Optional[str] = field(default=None,
+                                metadata={"help": "Language id for summarization."})
 
     dataset_name: Optional[str] = field(
-        default=None, metadata={"help": "The name of the dataset to use (via the datasets library)."}
+        default=None,
+        metadata={"help": "The name of the dataset to use (via the datasets library)."}
     )
     dataset_config_name: Optional[str] = field(
-        default=None, metadata={"help": "The configuration name of the dataset to use (via the datasets library)."}
+        default=None, metadata={
+            "help": "The configuration name of the dataset to use (via the datasets library)."}
     )
     train_file: Optional[str] = field(
-        default=None, metadata={"help": "The input training data file (a jsonlines or csv file)."}
+        default=None,
+        metadata={"help": "The input training data file (a jsonlines or csv file)."}
     )
     validation_file: Optional[str] = field(
         default=None,
@@ -108,7 +118,8 @@ class DataTrainingArguments:
         },
     )
     overwrite_cache: bool = field(
-        default=False, metadata={"help": "Overwrite the cached training and evaluation sets"}
+        default=False,
+        metadata={"help": "Overwrite the cached training and evaluation sets"}
     )
     preprocessing_num_workers: Optional[int] = field(
         default=None,
@@ -179,17 +190,21 @@ class DataTrainingArguments:
                 and self.validation_file is None
                 and self.test_file is None
         ):
-            raise ValueError("Need either a dataset name or a training, validation, or test file.")
+            raise ValueError(
+                "Need either a dataset name or a training, validation, or test file.")
         else:
             if self.train_file is not None:
                 extension = self.train_file.split(".")[-1]
-                assert extension in ["csv", "json"], "`train_file` should be a csv or a json file."
+                assert extension in ["csv",
+                                     "json"], "`train_file` should be a csv or a json file."
             if self.validation_file is not None:
                 extension = self.validation_file.split(".")[-1]
-                assert extension in ["csv", "json"], "`validation_file` should be a csv or a json file."
+                assert extension in ["csv",
+                                     "json"], "`validation_file` should be a csv or a json file."
             if self.test_file is not None:
                 extension = self.test_file.split(".")[-1]
-                assert extension in ["csv", "json"], "`test_file` should be a csv or a json file."
+                assert extension in ["csv",
+                                     "json"], "`test_file` should be a csv or a json file."
         if self.val_max_target_length is None:
             self.val_max_target_length = self.max_target_length
 
@@ -209,14 +224,8 @@ summarization_name_mapping = {
     "multi_news": ("document", "summary"),
 }
 
-# Variables for a custom preprocessing
 
-max_input_length = 1024
 max_target_length = 1024
-
-# Specify model
-
-model_checkpoint = "google/pegasus-pubmed"
 
 # Metric
 metric = load_metric("rouge")
@@ -229,7 +238,8 @@ class PegasusDataset(torch.utils.data.Dataset):
 
     def __getitem__(self, idx):
         item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
-        item['labels'] = torch.tensor(self.labels['input_ids'][idx])  # torch.tensor(self.labels[idx])
+        item['labels'] = torch.tensor(
+            self.labels['input_ids'][idx])  # torch.tensor(self.labels[idx])
         return item
 
     def __len__(self):
@@ -237,20 +247,19 @@ class PegasusDataset(torch.utils.data.Dataset):
 
 
 def main():
-    # See all possible arguments in src/transformers/training_args.py
-    # or by passing the --help flag to this script.
-    # We now keep distinct sets of args, for a cleaner separation of concerns.
-
-    parser = HfArgumentParser((ModelArguments, DataTrainingArguments, Seq2SeqTrainingArguments))
+    parser = HfArgumentParser(
+        (ModelArguments, DataTrainingArguments, Seq2SeqTrainingArguments))
     if len(sys.argv) == 2 and sys.argv[1].endswith(".json"):
         # If we pass only one argument to the script and it's the path to a json file,
         # let's parse it to get our arguments.
-        model_args, data_args, training_args = parser.parse_json_file(json_file=os.path.abspath(sys.argv[1]))
+        model_args, data_args, training_args = parser.parse_json_file(
+            json_file=os.path.abspath(sys.argv[1]))
     else:
         model_args, data_args, training_args = parser.parse_args_into_dataclasses()
 
     last_checkpoint = None
-    if os.path.isdir(training_args.output_dir) and training_args.do_train and not training_args.overwrite_output_dir:
+    if os.path.isdir(
+            training_args.output_dir) and training_args.do_train and not training_args.overwrite_output_dir:
         last_checkpoint = get_last_checkpoint(training_args.output_dir)
         if last_checkpoint is None and len(os.listdir(training_args.output_dir)) > 0:
             raise ValueError(
@@ -293,8 +302,7 @@ def main():
     def prepare_data(model, train_texts, train_labels,
                      val_texts=None, val_labels=None,
                      test_texts=None, test_labels=None):
-
-        tokenizer = AutoTokenizer.from_pretrained(model)
+        """ Preprocessing of data for a standard case"""
 
         prepare_val = False if val_texts is None or val_labels is None else True
         prepare_test = False if test_texts is None or test_labels is None else True
@@ -313,7 +321,8 @@ def main():
 
     # Custom Preprocessing for a xsum
     def show_random_elements(dataset, num_examples=5):
-        assert num_examples <= len(dataset), "Can't pick more elements than there are in the dataset."
+        assert num_examples <= len(
+            dataset), "Can't pick more elements than there are in the dataset."
         picks = []
         for _ in range(num_examples):
             pick = random.randint(0, len(dataset) - 1)
@@ -329,16 +338,19 @@ def main():
 
     def preprocess_function(examples):
         inputs = ["summarise" + doc for doc in examples["document"]]
-        model_inputs = tokenizer(inputs, max_length=max_input_length, truncation=True)
+        model_inputs = tokenizer(inputs, max_length=data_args.max_source_length, truncation=True)
 
         # Set up the tokenizer for targets
         with tokenizer.as_target_tokenizer():
-            labels = tokenizer(examples["summary"], max_length=max_target_length, truncation=True)
+            labels = tokenizer(examples["summary"], max_length=data_args.max_target_length,
+                               truncation=True)
 
         model_inputs["labels"] = labels["input_ids"]
         return model_inputs
 
     def compute_metrics(eval_pred):
+        """ Compute "custom" metrics for the xsum dataset"""
+
         predictions, labels = eval_pred
         decoded_preds = tokenizer.batch_decode(predictions, skip_special_tokens=True)
         # Replace -100 in the labels as we can't decode them.
@@ -346,23 +358,30 @@ def main():
         decoded_labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
 
         # Rouge expects a newline after each sentence
-        decoded_preds = ["\n".join(nltk.sent_tokenize(pred.strip())) for pred in decoded_preds]
-        decoded_labels = ["\n".join(nltk.sent_tokenize(label.strip())) for label in decoded_labels]
+        decoded_preds = ["\n".join(nltk.sent_tokenize(pred.strip())) for pred in
+                         decoded_preds]
+        decoded_labels = ["\n".join(nltk.sent_tokenize(label.strip())) for label in
+                          decoded_labels]
 
-        result = metric.compute(predictions=decoded_preds, references=decoded_labels, use_stemmer=True)
+        result = metric.compute(predictions=decoded_preds, references=decoded_labels,
+                                use_stemmer=True)
         # Extract a few results
         result = {key: value.mid.fmeasure * 100 for key, value in result.items()}
 
         # Add mean generated length
-        prediction_lens = [np.count_nonzero(pred != tokenizer.pad_token_id) for pred in predictions]
+        prediction_lens = [np.count_nonzero(pred != tokenizer.pad_token_id) for pred in
+                           predictions]
         result["gen_len"] = np.mean(prediction_lens)
 
         return {k: round(v, 4) for k, v in result.items()}
 
     def optuna_hp_space(trial):
+        """ Space of Hyper parameters for Optuna"""
+
         return {
             "learning_rate": trial.suggest_float("learning_rate", 2e-5, 2e-4, log=True),
-            "per_device_train_batch_size": trial.suggest_categorical("per_device_train_batch_size", [2, 4, 8]),
+            "per_device_train_batch_size": trial.suggest_categorical(
+                "per_device_train_batch_size", [2, 4, 8]),
         }
 
     args = ORTTrainingArguments(
@@ -428,10 +447,10 @@ def main():
 
     else:
 
-        train_texts, train_labels = raw_datasets['train']['document'][:1000], raw_datasets['train']['summary'][:1000]
+        train_texts, train_labels = raw_datasets['train']['document'][:1000], \
+            raw_datasets['train']['summary'][:1000]
         train_dataset, _, _, tokenizer = prepare_data(model, train_texts, train_labels)
         data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
-
 
     eval_dataset = val_dataset
 
@@ -468,7 +487,8 @@ def main():
 
             metrics = train_result.metrics
             max_train_samples = (
-                data_args.max_train_samples if data_args.max_train_samples is not None else len(train_dataset)
+                data_args.max_train_samples if data_args.max_train_samples is not None else len(
+                    train_dataset)
             )
             metrics["train_samples"] = min(max_train_samples, len(train_dataset))
 
@@ -488,12 +508,14 @@ def main():
             trainer.log_metrics("eval", metrics)
             trainer.save_metrics("eval", metrics)
 
-        kwargs = {"finetuned_from": model_args.model_name_or_path, "tasks": "summarization"}
+        kwargs = {"finetuned_from": model_args.model_name_or_path,
+                  "tasks": "summarization"}
         if data_args.dataset_name is not None:
             kwargs["dataset_tags"] = data_args.dataset_name
             if data_args.dataset_config_name is not None:
                 kwargs["dataset_args"] = data_args.dataset_config_name
-                kwargs["dataset"] = f"{data_args.dataset_name} {data_args.dataset_config_name}"
+                kwargs[
+                    "dataset"] = f"{data_args.dataset_name} {data_args.dataset_config_name}"
             else:
                 kwargs["dataset"] = data_args.dataset_name
 
