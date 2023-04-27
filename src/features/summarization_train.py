@@ -15,6 +15,7 @@ from transformers import (
     AutoModelForSeq2SeqLM,
     AutoModelForSequenceClassification,
     DataCollatorForSeq2Seq,
+    PegasusTokenizer,
     Seq2SeqTrainingArguments,
     PegasusForConditionalGeneration,
     AutoConfig,
@@ -426,7 +427,8 @@ def main():
     #     revision=model_args.model_revision,
     #     use_auth_token=True if model_args.use_auth_token else None,
     # )
-    tokenizer = AutoTokenizer.from_pretrained(model_args.model_name_or_path)
+    tokenizer = PegasusTokenizer.from_pretrained(model_args.model_name_or_path)
+    print("2")
     model = PegasusForConditionalGeneration.from_pretrained(model_args.model_name_or_path)
 
     # For HP optimisation
