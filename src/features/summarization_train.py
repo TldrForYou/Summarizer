@@ -426,8 +426,8 @@ def main():
     )
 
     # For HP optimisation
-    model_init = AutoModelForSequenceClassification.from_pretrained(
-        model)
+    def model_init(trial):
+        return AutoModelForSeq2SeqLM.from_pretrained(model_args.model_name_or_path)
 
     raw_datasets = load_dataset(
         data_args.dataset_name,
