@@ -7,10 +7,9 @@
 #SBATCH --cpus-per-task=4 
 #SBATCH --mem=200000
 #SBATCH --time=8:00:00
-#SBATCH --account=p_scads
+#SBATCH --account=p_scads_nlp
 #SBATCH -e error-%j.err
 #SBATCH -o out-%j.out
-
 
 export WANDB_API_KEY="8b7b1701dfe5526a55a654facba19ff2a29a94a3"
 export WANDB_ENTITY="du-pa"

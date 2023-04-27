@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=4 
 #SBATCH --mem=200000
 #SBATCH --time=8:00:00
-#SBATCH --account=p_scads
+#SBATCH --account=p_scads_nlp
 #SBATCH -e error-%j.err
 #SBATCH -o out-%j.out
 
