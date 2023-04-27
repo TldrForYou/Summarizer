@@ -474,7 +474,7 @@ def main():
         feature="seq2seq-lm",
     )
 
-    if data_args.overwrite_cache is True:
+    if model_args.use_fast_tokenizer is True:
 
         best_trial = trainer.hyperparameter_search(
             direction="maximize",
