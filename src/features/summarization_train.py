@@ -226,7 +226,6 @@ summarization_name_mapping = {
     "multi_news": ("document", "summary"),
 }
 
-
 max_target_length = 1024
 
 # Metric
@@ -340,11 +339,13 @@ def main():
 
     def preprocess_function(examples):
         inputs = ["summarise" + doc for doc in examples["document"]]
-        model_inputs = tokenizer(inputs, max_length=data_args.max_source_length, truncation=True)
+        model_inputs = tokenizer(inputs, max_length=data_args.max_source_length,
+                                 truncation=True)
 
         # Set up the tokenizer for targets
         with tokenizer.as_target_tokenizer():
-            labels = tokenizer(examples["summary"], max_length=data_args.max_target_length,
+            labels = tokenizer(examples["summary"],
+                               max_length=data_args.max_target_length,
                                truncation=True)
 
         model_inputs["labels"] = labels["input_ids"]
@@ -405,7 +406,7 @@ def main():
     )
     print("1")
     config = AutoConfig.from_pretrained(
-        #model_args.config_name if model_args.config_name else model_args.model_name_or_path,
+        # model_args.config_name if model_args.config_name else model_args.model_name_or_path,
         pretrained_model_name_or_path=model_args.model_name_or_path,
         cache_dir=model_args.cache_dir,
         revision=model_args.model_revision,
@@ -413,7 +414,7 @@ def main():
         use_auth_token=True if model_args.use_auth_token else None,
     )
     tokenizer = AutoTokenizer.from_pretrained(
-        #model_args.tokenizer_name if model_args.tokenizer_name else model_args.model_name_or_path,
+        # model_args.tokenizer_name if model_args.tokenizer_name else model_args.model_name_or_path,
         model_args.tokenizer_name,
         cache_dir=model_args.cache_dir,
         use_fast=model_args.use_fast_tokenizer,
@@ -430,6 +431,7 @@ def main():
     )
     # tokenizer = PegasusTokenizer.from_pretrained(model_args.model_name_or_path)
     print("2")
+
     # model = PegasusForConditionalGeneration.from_pretrained(model_args.model_name_or_path)
 
     # For HP optimisation
@@ -438,7 +440,7 @@ def main():
 
     raw_datasets = load_dataset(
         data_args.dataset_name,
-        #data_args.dataset_config_name,
+        # data_args.dataset_config_name,
         cache_dir=model_args.cache_dir,
         use_auth_token=True if model_args.use_auth_token else None,
     )
@@ -462,10 +464,44 @@ def main():
 
     else:
 
-        train_texts, train_labels = raw_datasets['train']['document'][:1000], \
-            raw_datasets['train']['summary'][:1000]
-        train_dataset, _, _, tokenizer = prepare_data(model, train_texts, train_labels)
-        data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
+        if training_args.do_train:
+            train_dataset = raw_datasets["train"]
+            if data_args.max_train_samples is not None:
+                max_train_samples = min(len(train_dataset), data_args.max_train_samples)
+                train_dataset = train_dataset.select(range(max_train_samples))
+            with training_args.main_process_first(
+                    desc="train dataset map pre-processing"):
+                train_dataset = train_dataset.map(
+                    preprocess_function,
+                    batched=True,
+                    num_proc=data_args.preprocessing_num_workers,
+                    load_from_cache_file=not data_args.overwrite_cache,
+                    desc="Running tokenizer on train dataset",
+                )
+
+        if training_args.do_eval:
+            max_target_length = data_args.val_max_target_length
+            eval_dataset = raw_datasets["validation"]
+            if data_args.max_eval_samples is not None:
+                max_eval_samples = min(len(eval_dataset), data_args.max_eval_samples)
+                eval_dataset = eval_dataset.select(range(max_eval_samples))
+            with training_args.main_process_first(
+                    desc="validation dataset map pre-processing"):
+                eval_dataset = eval_dataset.map(
+                    preprocess_function,
+                    batched=True,
+                    num_proc=data_args.preprocessing_num_workers,
+                    load_from_cache_file=not data_args.overwrite_cache,
+                    desc="Running tokenizer on validation dataset",
+                )
+
+        # max_target_length = data_args.val_max_target_length
+        # val_dataset = raw_datasets["validation"]
+        #
+        # train_texts, train_labels = raw_datasets['train']['document'][:1000], \
+        #     raw_datasets['train']['summary'][:1000]
+        # train_dataset, _, _, tokenizer = prepare_data(model, train_texts, train_labels)
+        # data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
 
     eval_dataset = val_dataset
 
@@ -481,7 +517,7 @@ def main():
         feature="seq2seq-lm",
     )
 
-    #if model_args.use_fast_tokenizer is True:
+    # if model_args.use_fast_tokenizer is True:
     if model_args.model_name_or_path == "google/pegasus-pubmed":
 
         best_trial = trainer.hyperparameter_search(
@@ -512,7 +548,7 @@ def main():
             trainer.save_metrics("train", metrics)
             trainer.save_state()
 
-            # Evaluation
+        # Evaluation
         results = {}
         if training_args.do_eval:
             logger.info("*** Evaluate ***")
