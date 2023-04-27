@@ -399,7 +399,7 @@ def main():
         save_total_limit=3,
         # predict_with_generate=True,
         fp16=False,
-        push_to_hub=True,
+        push_to_hub=False,
         report_to="wandb",
         optim="adamw_ort_fused",  # Fused Adam optimizer implemented by ORT
     )
