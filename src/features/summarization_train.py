@@ -494,7 +494,7 @@ def main():
                     load_from_cache_file=not data_args.overwrite_cache,
                     desc="Running tokenizer on validation dataset",
                 )
-
+            val_dataset = eval_dataset
         # max_target_length = data_args.val_max_target_length
         # val_dataset = raw_datasets["validation"]
         #
@@ -503,13 +503,13 @@ def main():
         # train_dataset, _, _, tokenizer = prepare_data(model, train_texts, train_labels)
         # data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
 
-    eval_dataset = val_dataset
+    #eval_dataset = val_dataset
 
     trainer = ORTTrainer(
         model=None,
         args=args,
         train_dataset=train_dataset,
-        eval_dataset=eval_dataset,
+        eval_dataset=val_dataset,
         data_collator=data_collator,
         tokenizer=tokenizer,
         model_init=model_init,
