@@ -431,7 +431,9 @@ def main():
         use_auth_token=True if model_args.use_auth_token else None,
     )
 
+    # Condition for the mode
     if data_args.overwrite_cache is True:
+
         fake_preds = ["hello there", "general kenobi"]
         fake_labels = ["hello there", "general kenobi"]
         metric.compute(predictions=fake_preds, references=fake_labels)
@@ -455,7 +457,7 @@ def main():
     eval_dataset = val_dataset
 
     trainer = ORTTrainer(
-        model=model,
+        #model=model,
         args=args,
         train_dataset=train_dataset,
         eval_dataset=eval_dataset,

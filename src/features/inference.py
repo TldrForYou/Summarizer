@@ -2,7 +2,7 @@ from transformers import BigBirdPegasusForConditionalGeneration, AutoTokenizer
 import requests
 import PyPDF2
 
-url = 'https://www.example.com/example.pdf'
+url = 'https://arxiv.org/pdf/1908.08593.pdf'
 response = requests.get(url)
 
 tokenizer = AutoTokenizer.from_pretrained("google/bigbird-pegasus-large-pubmed")
