@@ -424,6 +424,10 @@ def main():
         use_auth_token=True if model_args.use_auth_token else None,
     )
 
+    # For HP optimisation
+    model_init = PegasusForConditionalGeneration.from_pretrained(
+        model_args.model_name_or_path)
+
     raw_datasets = load_dataset(
         data_args.dataset_name,
         data_args.dataset_config_name,
@@ -463,7 +467,7 @@ def main():
         eval_dataset=eval_dataset,
         data_collator=data_collator,
         tokenizer=tokenizer,
-        model_init=model,
+        model_init=model_init,
         compute_metrics=compute_metrics,
         feature="seq2seq-lm",
     )
