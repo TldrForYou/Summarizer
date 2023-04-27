@@ -119,7 +119,7 @@ class DataTrainingArguments:
         },
     )
     overwrite_cache: bool = field(
-        default=False,
+        default=True,
         metadata={"help": "Overwrite the cached training and evaluation sets"}
     )
     preprocessing_num_workers: Optional[int] = field(
@@ -463,7 +463,7 @@ def main():
     eval_dataset = val_dataset
 
     trainer = ORTTrainer(
-        #model=model,
+        model=None,
         args=args,
         train_dataset=train_dataset,
         eval_dataset=eval_dataset,
