@@ -463,6 +463,7 @@ def main():
         val_dataset = tokenized_datasets["validation"]
 
     else:
+        data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
 
         if training_args.do_train:
             train_dataset = raw_datasets["train"]
