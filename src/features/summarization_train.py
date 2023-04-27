@@ -437,7 +437,8 @@ def main():
     )
 
     # Condition for the mode
-    if data_args.overwrite_cache is True:
+    if model_args.use_fast_tokenizer is True:
+    #if data_args.overwrite_cache is True:
 
         fake_preds = ["hello there", "general kenobi"]
         fake_labels = ["hello there", "general kenobi"]
