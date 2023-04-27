@@ -13,6 +13,7 @@ from datasets import load_dataset, load_metric
 from transformers import AutoTokenizer
 from transformers import (
     AutoModelForSeq2SeqLM,
+    AutoModelForSequenceClassification,
     DataCollatorForSeq2Seq,
     Seq2SeqTrainingArguments,
     PegasusForConditionalGeneration,
@@ -425,7 +426,7 @@ def main():
     )
 
     # For HP optimisation
-    model_init = PegasusForConditionalGeneration.from_pretrained(
+    model_init = AutoModelForSequenceClassification.from_pretrained(
         model_args.model_name_or_path)
 
     raw_datasets = load_dataset(
