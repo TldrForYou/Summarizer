@@ -427,7 +427,7 @@ def main():
 
     # For HP optimisation
     model_init = AutoModelForSequenceClassification.from_pretrained(
-        model_args.model_name_or_path)
+        model)
 
     raw_datasets = load_dataset(
         data_args.dataset_name,
