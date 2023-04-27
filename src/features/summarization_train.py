@@ -399,7 +399,7 @@ def main():
         save_total_limit=3,
         # predict_with_generate=True,
         fp16=False,
-        push_to_hub=False,
+        push_to_hub=True,
         report_to="wandb",
         optim="adamw_ort_fused",  # Fused Adam optimizer implemented by ORT
     )
@@ -444,8 +444,8 @@ def main():
     )
 
     # Condition for the mode
-    if model_args.use_fast_tokenizer is True:
-    #if data_args.overwrite_cache is True:
+    # if model_args.use_fast_tokenizer is True:
+    if model_args.model_name_or_path == "google/pegasus-pubmed":
 
         fake_preds = ["hello there", "general kenobi"]
         fake_labels = ["hello there", "general kenobi"]
@@ -481,7 +481,8 @@ def main():
         feature="seq2seq-lm",
     )
 
-    if model_args.use_fast_tokenizer is True:
+    #if model_args.use_fast_tokenizer is True:
+    if model_args.model_name_or_path == "google/pegasus-pubmed":
 
         best_trial = trainer.hyperparameter_search(
             direction="maximize",
@@ -527,12 +528,12 @@ def main():
                   "tasks": "summarization"}
         if data_args.dataset_name is not None:
             kwargs["dataset_tags"] = data_args.dataset_name
-            # if data_args.dataset_config_name is not None:
-            #     kwargs["dataset_args"] = data_args.dataset_config_name
-            #     kwargs[
-            #         "dataset"] = f"{data_args.dataset_name} {data_args.dataset_config_name}"
-            # else:
-            kwargs["dataset"] = data_args.dataset_name
+            if data_args.dataset_config_name is not None:
+                kwargs["dataset_args"] = data_args.dataset_config_name
+                kwargs[
+                    "dataset"] = f"{data_args.dataset_name} {data_args.dataset_config_name}"
+            else:
+                kwargs["dataset"] = data_args.dataset_name
 
         if data_args.lang is not None:
             kwargs["language"] = data_args.lang
