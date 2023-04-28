@@ -496,13 +496,7 @@ def main():
                     desc="Running tokenizer on validation dataset",
                 )
             val_dataset = eval_dataset
-        # max_target_length = data_args.val_max_target_length
-        # val_dataset = raw_datasets["validation"]
-        #
-        # train_texts, train_labels = raw_datasets['train']['document'][:1000], \
-        #     raw_datasets['train']['summary'][:1000]
-        # train_dataset, _, _, tokenizer = prepare_data(model, train_texts, train_labels)
-        # data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
+
 
     #eval_dataset = val_dataset
 
