@@ -1,0 +1,26 @@
+name: Lint-test
+
+on: 
+  workflow_call:
+
+permissions:
+  contents: read
+  
+jobs:  
+  job_1:
+  # https://github.com/marketplace/actions/python-linter
+  
+    name: Mypy, PyLint, Black, isort
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Python Lint
+      uses: sunnysid3up/python-linter@master
+      with:
+#        source: "src"
+        mypy-options: "--ignore-missing-imports --show-error-codes"
+#        pylint-options: "--rcfile=pylint.cfg"
+        black-options: "--diff --color"
+        strict: medium
+#        isort-options: "-w 100"
