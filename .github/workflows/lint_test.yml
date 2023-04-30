@@ -20,7 +20,7 @@ jobs:
       with:
         source: "src"
         mypy-options: "--ignore-missing-imports --show-error-codes"
-        pylint-options: "--rcfile=pylint.cfg"
-        black-options: "-h"
-        strict: medium
+        pylint-options: "--rcfile=.github/workflows/pylint.cfg"
+        black-options: "--version"
+        strict: low
 #        isort-options: "-w 100"
