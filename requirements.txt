@@ -9,7 +9,6 @@ amqp==5.1.1
 antlr4-python3-runtime==4.9.3
 anyio==3.6.2
 appdirs==1.4.4
-apturl
 argon2-cffi==21.3.0
 argon2-cffi-bindings==21.2.0
 arrow==1.2.3
@@ -53,7 +52,7 @@ datasets==2.11.0
 dbus-python==1.2.18
 debugpy==1.6.6
 decorator==5.1.1
-deepspeed==0.9.0
+#deepspeed==0.9.0
 defer==1.0.6
 defusedxml==0.7.1
 dictdiffer==0.9.0
