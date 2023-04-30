@@ -18,9 +18,9 @@ jobs:
     - name: Python Lint
       uses: sunnysid3up/python-linter@master
       with:
-#        source: "src"
+        source: "src"
         mypy-options: "--ignore-missing-imports --show-error-codes"
-#        pylint-options: "--rcfile=pylint.cfg"
-        black-options: "--diff --color"
+        pylint-options: "--rcfile=pylint.cfg"
+        black-options: "-h"
         strict: medium
 #        isort-options: "-w 100"
