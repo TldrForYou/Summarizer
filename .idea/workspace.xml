@@ -5,7 +5,10 @@
   </component>
   <component name="BlackConnectSettings" targetSpecificVersions="true" pythonTargets="py3.10" />
   <component name="ChangeListManager">
-    <list default="true" id="934c8b59-8569-41f5-acdb-19a063627017" name="Changes" comment="update of requirements.txt" />
+    <list default="true" id="934c8b59-8569-41f5-acdb-19a063627017" name="Changes" comment="update of requirements.txt">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,7 +53,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "vcs.Git",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -74,7 +77,8 @@
       <workItem from="1682842461936" duration="375000" />
       <workItem from="1682842903919" duration="4046000" />
       <workItem from="1682846961073" duration="2653000" />
-      <workItem from="1682849621028" duration="2332000" />
+      <workItem from="1682849621028" duration="3072000" />
+      <workItem from="1682969721030" duration="2068000" />
     </task>
     <task id="LOCAL-00001" summary="Minor changes in the formatting">
       <created>1682454264003</created>
@@ -236,6 +240,9 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="requirements.txt" />
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -261,5 +268,8 @@
     <MESSAGE value="CI and Linters" />
     <MESSAGE value="update of requirements.txt" />
     <option name="LAST_COMMIT_MESSAGE" value="update of requirements.txt" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Summarizer$summarization_train.coverage" NAME="summarization_train Coverage Results" MODIFIED="1682971443840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/features" />
   </component>
 </project>
