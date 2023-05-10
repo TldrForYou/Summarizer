@@ -35,3 +35,15 @@ python inference.py
     --output_path_pdf="wandb/1908.08593.pdf"   # path where the inputh .pdf paper will be saved
 ```
 Summary of the chosen paper will be showed as an output
+
+## Implement:
+- Automatic article scanning based on .pdf or url
+- Generalization and creation of a brief retelling of a scientific article
+
+## Metrics 
+
+* `ROGUE-L` > 15
+* `F1` > 50%
+* Telegram bot API
+
+Link to [ROGUE-L](https://huggingface.co/spaces/evaluate-metric/roug
