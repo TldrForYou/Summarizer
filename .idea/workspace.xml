@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BlackConnectSettings" targetSpecificVersions="true" pythonTargets="py3.10" />
+  <component name="ChangeListManager">
+    <list default="true" id="934c8b59-8569-41f5-acdb-19a063627017" name="Changes" comment="cli to inference added">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="CI_and_Linters" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/features/summarization_train.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2OvRrAcxyXAjACC9qatRB3G3G2C" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Notification.DisplayName-DoNotAsk-Vcs Important Messages": "VCS important messages",
+    "Notification.DoNotAsk-Vcs Important Messages": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/andrei/Work/MLops_project/chatbot/Summarisation_cahtbot",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="934c8b59-8569-41f5-acdb-19a063627017" name="Changes" comment="" />
+      <created>1682439264530</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1682439264530</updated>
+      <workItem from="1682439265656" duration="3473000" />
+      <workItem from="1682448080203" duration="4033000" />
+      <workItem from="1682600713924" duration="16679000" />
+      <workItem from="1682625730991" duration="10030000" />
+      <workItem from="1682710369227" duration="2083000" />
+      <workItem from="1682768957286" duration="3735000" />
+      <workItem from="1682802523135" duration="579000" />
+      <workItem from="1682803113870" duration="71000" />
+      <workItem from="1682841843135" duration="609000" />
+      <workItem from="1682842461936" duration="375000" />
+      <workItem from="1682842903919" duration="4046000" />
+      <workItem from="1682846961073" duration="2653000" />
+      <workItem from="1682849621028" duration="3072000" />
+      <workItem from="1682969721030" duration="6932000" />
+      <workItem from="1682976672735" duration="22000" />
+      <workItem from="1683022372275" duration="1249000" />
+      <workItem from="1683126224590" duration="4535000" />
+      <workItem from="1683291561449" duration="2565000" />
+    </task>
+    <task id="LOCAL-00001" summary="Minor changes in the formatting">
+      <created>1682454264003</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1682454264003</updated>
+    </task>
+    <task id="LOCAL-00002" summary="bug with model_init fixing">
+      <created>1682610485776</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1682610485776</updated>
+    </task>
+    <task id="LOCAL-00003" summary="bug with model_init fixing">
+      <created>1682611125367</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1682611125367</updated>
+    </task>
+    <task id="LOCAL-00004" summary="bug with model_init fixing">
+      <created>1682611439069</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1682611439069</updated>
+    </task>
+    <task id="LOCAL-00005" summary="bug with model_init fixing">
+      <created>1682611729188</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1682611729188</updated>
+    </task>
+    <task id="LOCAL-00006" summary="bug with config fixing">
+      <created>1682612390333</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1682612390333</updated>
+    </task>
+    <task id="LOCAL-00007" summary="bug with no training fixing">
+      <created>1682613039455</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1682613039455</updated>
+    </task>
+    <task id="LOCAL-00008" summary="bug with no training fixing">
+      <created>1682613597388</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1682613597388</updated>
+    </task>
+    <task id="LOCAL-00009" summary="bug with no training fixing">
+      <created>1682614387487</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1682614387487</updated>
+    </task>
+    <task id="LOCAL-00010" summary="bug with no training fixing">
+      <created>1682617211687</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1682617211687</updated>
+    </task>
+    <task id="LOCAL-00011" summary="bug with no training fixing">
+      <created>1682617515117</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1682617515117</updated>
+    </task>
+    <task id="LOCAL-00012" summary="bug with no training fixing">
+      <created>1682618396677</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1682618396677</updated>
+    </task>
+    <task id="LOCAL-00013" summary="bug with no training fixing">
+      <created>1682620270873</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1682620270873</updated>
+    </task>
+    <task id="LOCAL-00014" summary="bug with no training fixing, inference is working now">
+      <created>1682629496786</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1682629496786</updated>
+    </task>
+    <task id="LOCAL-00015" summary="condition for the training">
+      <created>1682630198737</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1682630198737</updated>
+    </task>
+    <task id="LOCAL-00016" summary="condition for the training">
+      <created>1682634131247</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1682634131247</updated>
+    </task>
+    <task id="LOCAL-00017" summary="eval dataset specify">
+      <created>1682634810266</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1682634810266</updated>
+    </task>
+    <task id="LOCAL-00018" summary="eval collator specify">
+      <created>1682635320592</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1682635320592</updated>
+    </task>
+    <task id="LOCAL-00019" summary="scripts added">
+      <created>1682636666406</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1682636666406</updated>
+    </task>
+    <task id="LOCAL-00020" summary="unused comments removed">
+      <created>1682711710451</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1682711710451</updated>
+    </task>
+    <task id="LOCAL-00021" summary="CI and Linters">
+      <created>1682800486445</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1682800486445</updated>
+    </task>
+    <task id="LOCAL-00022" summary="update of requirements.txt">
+      <created>1682847615754</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1682847615754</updated>
+    </task>
+    <task id="LOCAL-00023" summary="update of requirements.txt">
+      <created>1682971806569</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1682971806569</updated>
+    </task>
+    <task id="LOCAL-00024" summary="cli to inference added">
+      <created>1683130653542</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1683130653542</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="requirements.txt" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Minor changes in the formatting" />
+    <MESSAGE value="bug with model_init fixing" />
+    <MESSAGE value="bug with config fixing" />
+    <MESSAGE value="bug with no training fixing" />
+    <MESSAGE value="bug with no training fixing, inference is working now" />
+    <MESSAGE value="condition for the training" />
+    <MESSAGE value="eval dataset specify" />
+    <MESSAGE value="eval collator specify" />
+    <MESSAGE value="scripts added" />
+    <MESSAGE value="unused comments removed" />
+    <MESSAGE value="CI and Linters" />
+    <MESSAGE value="update of requirements.txt" />
+    <MESSAGE value="cli to inference added" />
+    <option name="LAST_COMMIT_MESSAGE" value="cli to inference added" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Summarizer$summarization_train.coverage" NAME="summarization_train Coverage Results" MODIFIED="1682971443840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/features" />
+  </component>
+</project>

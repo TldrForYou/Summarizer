@@ -1,0 +1,28 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+
+name: Python application
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  tests_on_push:
+    name: setup and flake8 test
+    uses: ./.github/workflows/push.yml
+        
+  lint-tests:
+  # https://github.com/marketplace/actions/python-linter
+  
+    name: Mypy, PyLint, Black, isort
+    uses: ./.github/workflows/lint_test.yml
+
+  Dependencies :
+    name: Dependencies installation
+
+    uses: ./.github/workflows/install_dep.yml
