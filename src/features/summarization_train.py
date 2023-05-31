@@ -26,9 +26,23 @@ from huggingface_hub import login
 
 import nltk
 import wandb
+import mlflow
+
+mlflow.set_tracking_uri("http://89.19.208.000:5000")
+mlflow.set_experiment("test_finetune")
+mlflow.transformers.autolog()
+
+os.environ["AWS_ACCESS_KEY_ID"] = ""
+os.environ["AWS_SECRET_ACCESS_KEY"] = ""
+os.environ["MLFLOW_S3_ENDPOINT_URL"] = f"http://89.19.208.000:9000"
+os.environ["DISABLE_MLFLOW_INTEGRATION"] = "False"
+os.environ["HF_MLFLOW_LOG_ARTIFACTS"] = "True"
+
+
 
 wandb.login()
 
+#Login token for HF
 login(token="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")
 
 # Initialize Wandb
@@ -407,7 +421,7 @@ def main():
         save_total_limit=3,
         fp16=False,
         push_to_hub=True,
-        report_to="wandb",
+        report_to="mlflow, wandb",  # change to your favourite tracking platform
         optim="adamw_ort_fused",  # Fused Adam optimizer implemented by ORT
     )
     print("1")
@@ -496,7 +510,7 @@ def main():
                     desc="Running tokenizer on validation dataset",
                 )
             val_dataset = eval_dataset
-
+    mlflow_callback = transformers.integrations.MLflowCallback()
     trainer = ORTTrainer(
         model=None,
         args=args,
@@ -505,6 +519,7 @@ def main():
         data_collator=data_collator,
         tokenizer=tokenizer,
         model_init=model_init,
+        callbacks=[mlflow_callback],
         compute_metrics=compute_metrics,
         feature="seq2seq-lm",
     )
@@ -581,4 +596,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    mlflow.end_run()
     wandb.finish()
