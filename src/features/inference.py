@@ -1,9 +1,19 @@
 """ This file is for inference of a NLP model """
-
+import os
 import argparse
 from transformers import BigBirdPegasusForConditionalGeneration, AutoTokenizer
 import requests
 import PyPDF2
+import mlflow
+from mlflow.models.signature import infer_signature
+
+os.environ["AWS_ACCESS_KEY_ID"] = ""  # put your credentials here
+os.environ["AWS_SECRET_ACCESS_KEY"] = ""  # put your credentials here
+os.environ["MLFLOW_S3_ENDPOINT_URL"] = f"http://89.19.208.000:9000"  # put server's ip
+
+mlflow.set_tracking_uri("http://89.19.208.000:5000")
+mlflow.set_experiment("test1")
+mlflow.transformers.autolog()
 
 
 def extract_text(input_url_pdf: str, output_path_pdf: str):
@@ -21,19 +31,8 @@ def extract_text(input_url_pdf: str, output_path_pdf: str):
 
     return text
 
-
-def model_inference(input_url_tokenizer: str, input_url_model: str, text: str):
-    """function to run model inference on extracted text"""
-    # google/bigbird-pegasus-large-pubmed
-    tokenizer = AutoTokenizer.from_pretrained(input_url_tokenizer)
-    inputs = tokenizer(text, return_tensors="pt")
-
-    # by default encoder-attention is `block_sparse` with num_random_blocks=3,
-    # block_size=64
-    model = BigBirdPegasusForConditionalGeneration.from_pretrained(input_url_model)
-    prediction = model.generate(**inputs)
-    prediction = tokenizer.batch_decode(prediction)
-    return prediction
+# by default encoder-attention is `block_sparse` with num_random_blocks=3,
+# block_size=64
 
 
 if __name__ == "__main__":
@@ -47,6 +46,30 @@ if __name__ == "__main__":
     parser.add_argument('--input_url_model', required=True,
                         help='Input URL of the model to use')
     args = parser.parse_args()
+    tokenizer = AutoTokenizer.from_pretrained(args.input_url_tokenizer)
+
     extr_text = extract_text(args.input_url_pdf, args.output_path_pdf)
-    result = model_inference(args.input_url_tokenizer, args.input_url_model, extr_text)
-    print(result)
+    inputs = tokenizer(extr_text, return_tensors="pt")
+
+    model = BigBirdPegasusForConditionalGeneration.from_pretrained(args.input_url_model)
+
+    prediction = model.generate(**inputs)
+    prediction = tokenizer.batch_decode(prediction)
+    signature = infer_signature(extr_text, prediction)
+
+    with mlflow.start_run():
+        components = {
+            "model": model,
+            "tokenizer": tokenizer,
+        }
+        model_info = mlflow.transformers.log_model(
+            transformers_model=components,
+            artifact_path="summarizer",
+            framework="pt",
+            signature=signature,
+            inference_config={"max_length": 256}
+        )
+
+    autolog_run = mlflow.last_active_run()
+    mlflow.end_run()
+    print(prediction)
